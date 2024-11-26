@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import ShowCard from './ShowCard';
+import LoadingSpinner from './LoadingSpinner';
+import { fetchShows } from '../api';
 
 const ShowList = () => {
     const [shows, setShows] = useState([]);

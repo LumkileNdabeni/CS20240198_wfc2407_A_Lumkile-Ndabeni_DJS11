@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchShowById } from '../api';
+import AudioPlayer from '../components/AudioPlayer';
 
 const ShowDetail = () => {
     const { id } = useParams();
