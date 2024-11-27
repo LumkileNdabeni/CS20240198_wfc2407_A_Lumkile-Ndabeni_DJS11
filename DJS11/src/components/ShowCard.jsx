@@ -9,7 +9,9 @@ const ShowCard = ({ show }) => {
 
   return (
     <div className="show-card">
-      <img src={show.image} alt={show.title} style={imageStyle} />
+      <Link to={`/show/${show.id}`}>
+        <img src={show.image} alt={show.title} style={imageStyle} />
+      </Link>
       <Link to={`/show/${show.id}`}>
         <h3>{show.title}</h3>
       </Link>
