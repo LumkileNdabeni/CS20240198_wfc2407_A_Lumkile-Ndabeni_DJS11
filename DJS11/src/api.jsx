@@ -23,3 +23,11 @@ export const fetchGenreById = async (id) => {
     }
     return await response.json();
 };
+
+export const fetchGenres = async () => {
+    const response = await fetch(BASE_URL);
+    if (!response.ok) {
+        throw new Error('Failed to fetch genres');
+    }
+    return await response.json();
+};
