@@ -1,0 +1,5 @@
+.show-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Create 5 columns */
+    gap: 20px; /* Adjust spacing between shows */
+  }
