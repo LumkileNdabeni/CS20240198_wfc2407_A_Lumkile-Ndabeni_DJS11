@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const GenreFilter = () => {
-  const [selectedGenre, setSelectedGenre] = useState(""); // State to store selected genre ID
-
+const GenreFilter = ({ onFilter }) => {
   const genres = [
     { id: 1, title: "Personal Growth" },
     { id: 2, title: "Investigative Journalism" },
@@ -16,13 +14,14 @@ const GenreFilter = () => {
   ];
 
   const handleGenreChange = (event) => {
-    setSelectedGenre(event.target.value); // Update selected genre ID
+    const genreId = event.target.value;
+    onFilter(genreId);
   };
 
   return (
     <div>
       <h4>Filter by Genre</h4>
-      <select value={selectedGenre} onChange={handleGenreChange}>
+      <select onChange={handleGenreChange}>
         <option value="">All Genres</option>
         {genres.map((genre) => (
           <option key={genre.id} value={genre.id}>

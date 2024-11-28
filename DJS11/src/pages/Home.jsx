@@ -1,25 +1,21 @@
-import React from 'react';
-import ShowList from '../components/ShowList';
-import GenreFilter from '../components/GenreFilter';
-import { useGenres } from '../hooks/useFetchShows'; // Custom hook to fetch genres
+import React, { useState } from "react";
+import ShowList from "../components/ShowList";
+import GenreFilter from "../components/GenreFilter";
 
 const Home = () => {
-    const { genres, loading } = useGenres();
+  const [selectedGenreId, setSelectedGenreId] = useState("");
 
-    const handleFilter = (genreId) => {
-        // Logic to filter shows by genre can be implemented here
-        console.log(`Filter shows by genre ID: ${genreId}`);
-    };
+  const handleFilter = (genreId) => {
+    setSelectedGenreId(genreId);
+  };
 
-    if (loading) return <div>Loading genres...</div>;
-
-    return (
-        <div className="home">
-            <h1>Podcast App</h1>
-            <GenreFilter genres={genres} onFilter={handleFilter} />
-            <ShowList />
-        </div>
-    );
+  return (
+    <div className="home">
+      <h1>Podcast App</h1>
+      <GenreFilter onFilter={handleFilter} />
+      <ShowList selectedGenreId={selectedGenreId} />
+    </div>
+  );
 };
 
 export default Home;
