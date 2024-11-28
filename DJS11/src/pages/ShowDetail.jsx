@@ -53,6 +53,7 @@ const ShowDetail = () => {
 
       {selectedSeason && (
         <div>
+          <p>Last Updated: {new Date(show.updated).toLocaleDateString()}</p>
           <h1>Season {show.seasons.findIndex((s) => s.id === selectedSeason.id) + 1}</h1>
           <h2>Episodes:</h2>
           <ul>
