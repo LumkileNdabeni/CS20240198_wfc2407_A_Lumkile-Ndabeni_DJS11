@@ -13,7 +13,7 @@ const ShowCard = ({ show, showDescription }) => {
         <img src={show.image} alt={show.title} style={imageStyle} />
       </Link>
       <Link to={`/show/${show.id}`}>
-        <h3>{show.title}</h3>
+      <button className="show-title-button">{show.title}</button> 
       </Link>
       {showDescription && <p>{show.description}</p>}
     </div>

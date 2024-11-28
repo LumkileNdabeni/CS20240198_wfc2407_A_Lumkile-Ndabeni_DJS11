@@ -1,15 +1,24 @@
 .show-list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Create 5 columns */
-    gap: 20px; /* Adjust spacing between shows */
+    grid-template-columns: repeat(5, 1fr); /* Creates 5 columns */
+    gap: 20px; /* Adjusts spacing between shows */
   }
 
   .show-detail img { /* Target the show image within the show detail page */
     display: block; /* Make the image behave like a block element */
     margin-left: auto;
     margin-right: auto; /* Center the image horizontally */
+    margin-bottom: 20px;
     width: 400px; /* Set the image width to 400px */
     height: 400px; 
+}
+
+.show-detail .show-card { /* Target the .show-card within .show-detail */
+  display: flex;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  flex-direction: column; /* Align items vertically */
+  align-items: center; /* Center items horizontally */
 }
 
 .show-card {
@@ -17,11 +26,29 @@
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  transition: transform 0.2s ease; /* Add a transition for the hover effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  transition: transform 0.2s ease; /* Adds a transition for the hover effect */
 }
 
 .show-card:hover {
   transform: translateY(-5px); /* Slightly lift the card on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+.show-title-button {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin:  10px 0; /* Adds margin around the button */
+    cursor: pointer;
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.show-title-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
 }
