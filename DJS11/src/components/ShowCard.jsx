@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ShowCard = ({ show }) => {
+const ShowCard = ({ show, showDescription }) => {
   const imageStyle = {
-    width: "200px", // Adjust the width as needed
-    height: "auto", // Maintain aspect ratio
+    width: "200px",
+    height: "auto",
   };
 
   return (
@@ -15,7 +15,7 @@ const ShowCard = ({ show }) => {
       <Link to={`/show/${show.id}`}>
         <h3>{show.title}</h3>
       </Link>
-      <p>{show.description}</p>
+      {showDescription && <p>{show.description}</p>} {/* Conditionally render description */}
     </div>
   );
 };
