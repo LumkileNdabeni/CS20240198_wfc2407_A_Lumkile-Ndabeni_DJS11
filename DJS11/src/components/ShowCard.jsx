@@ -15,7 +15,7 @@ const ShowCard = ({ show, showDescription }) => {
       <Link to={`/show/${show.id}`}>
         <h3>{show.title}</h3>
       </Link>
-      {showDescription && <p>{show.description}</p>} {/* Conditionally render description */}
+      {showDescription && <p>{show.description}</p>}
     </div>
   );
 };

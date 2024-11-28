@@ -3,3 +3,25 @@
     grid-template-columns: repeat(5, 1fr); /* Create 5 columns */
     gap: 20px; /* Adjust spacing between shows */
   }
+
+  .show-detail img { /* Target the show image within the show detail page */
+    display: block; /* Make the image behave like a block element */
+    margin-left: auto;
+    margin-right: auto; /* Center the image horizontally */
+    width: 400px; /* Set the image width to 400px */
+    height: 400px; 
+}
+
+.show-card {
+  background-color: #f5f5f5; /* Light grey background */
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  transition: transform 0.2s ease; /* Add a transition for the hover effect */
+}
+
+.show-card:hover {
+  transform: translateY(-5px); /* Slightly lift the card on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
