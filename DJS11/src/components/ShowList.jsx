@@ -6,6 +6,8 @@ import { fetchShows } from "../api";
 const ShowList = ({ selectedGenreId }) => {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [sortOrder, setSortOrder] = useState("asc"); // State for sort order
 
   useEffect(() => {
     const loadShows = async () => {
@@ -16,9 +18,6 @@ const ShowList = ({ selectedGenreId }) => {
         const filteredShows = selectedGenreId
           ? data.filter((show) => show.genreId === parseInt(selectedGenreId))
           : data;
-
-        // Sort shows alphabetically
-        filteredShows.sort((a, b) => a.title.localeCompare(b.title));
 
         setShows(filteredShows);
       } catch (error) {
@@ -31,13 +30,45 @@ const ShowList = ({ selectedGenreId }) => {
     loadShows();
   }, [selectedGenreId]);
 
+  // Search function
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Sort function
+  const handleSort = () => {
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
+  // Filter shows based on search term
+  const filteredShows = shows.filter((show) =>
+    show.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Sort shows based on sort order
+  const sortedShows = [...filteredShows].sort((a, b) => {
+    const comparison = a.title.localeCompare(b.title);
+    return sortOrder === "asc" ? comparison : -comparison;
+  });
+
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="show-list">
-      {shows.map((show) => (
-        <ShowCard key={show.id} show={show} />
-      ))}
+    <div>
+      <input
+        type="text"
+        placeholder="Search by title"
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+      <button onClick={handleSort}>
+        Sort {sortOrder === "asc" ? "Z-A" : "A-Z"}
+      </button>
+      <div className="show-list">
+        {sortedShows.map((show) => (
+          <ShowCard key={show.id} show={show} />
+        ))}
+      </div>
     </div>
   );
 };
