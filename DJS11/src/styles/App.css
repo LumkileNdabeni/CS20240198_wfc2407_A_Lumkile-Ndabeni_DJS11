@@ -1,8 +1,31 @@
+.home-container {
+  display: flex; /* Use Flexbox for layout */
+  justify-content: space-between; /* Align items to opposite ends */
+  align-items: center; /* Center items vertically */
+  padding: 1rem; /* Add some spacing around the elements */
+}
+
+.home-container > div {
+  display: flex; /* Make filter and buttons a flex container */
+  gap: 1rem; /* Add space between filter and buttons */
+}
+
+.home-container select { /* Target the genre filter dropdown */
+  padding: 0.5rem 1rem; /* Increase padding for height */
+  font-size: 1rem; /* Increase font size */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 5px; /* Add rounded corners */
+}
+
 .show-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Creates 5 columns */
-    gap: 20px; /* Adjusts spacing between shows */
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 5 cards per row */
+  gap: 1rem; /* Spacing between cards */
+}
+
+.show-list-container { /* Style the container for padding */
+  padding: 1rem;
+}
 
   .show-detail img { /* Target the show image within the show detail page */
     display: block; /* Make the image behave like a block element */

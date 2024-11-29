@@ -3,23 +3,32 @@ import ShowCard from "./ShowCard";
 import LoadingSpinner from "./LoadingSpinner";
 import { fetchShows } from "../api";
 
-const ShowList = ({ selectedGenreId }) => {
+const ShowList = ({ selectedGenreId, searchTerm, sortOrder }) => {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
-  const [sortOrder, setSortOrder] = useState("asc"); // State for sort order
 
   useEffect(() => {
     const loadShows = async () => {
       try {
         const data = await fetchShows();
 
-        // Apply genre filter if selectedGenreId is provided
-        const filteredShows = selectedGenreId
+        // 1. Filter by genre
+        const genreFilteredShows = selectedGenreId
           ? data.filter((show) => show.genreId === parseInt(selectedGenreId))
           : data;
 
-        setShows(filteredShows);
+        // 2. Filter by search term
+        const searchedShows = genreFilteredShows.filter((show) =>
+          show.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        // 3. Sort the shows
+        const sortedShows = [...searchedShows].sort((a, b) => {
+          const comparison = a.title.localeCompare(b.title);
+          return sortOrder === "asc" ? comparison : -comparison;
+        });
+
+        setShows(sortedShows);
       } catch (error) {
         console.error(error);
       } finally {
@@ -28,44 +37,14 @@ const ShowList = ({ selectedGenreId }) => {
     };
 
     loadShows();
-  }, [selectedGenreId]);
-
-  // Search function
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  // Sort function
-  const handleSort = () => {
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-  };
-
-  // Filter shows based on search term
-  const filteredShows = shows.filter((show) =>
-    show.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Sort shows based on sort order
-  const sortedShows = [...filteredShows].sort((a, b) => {
-    const comparison = a.title.localeCompare(b.title);
-    return sortOrder === "asc" ? comparison : -comparison;
-  });
+  }, [selectedGenreId, searchTerm, sortOrder]);
 
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search by title"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-      <button onClick={handleSort}>
-        Sort {sortOrder === "asc" ? "Z-A" : "A-Z"}
-      </button>
+    <div className="show-list-container">
       <div className="show-list">
-        {sortedShows.map((show) => (
+        {shows.map((show) => (
           <ShowCard key={show.id} show={show} />
         ))}
       </div>
