@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ShowCard from "./ShowCard";
 import LoadingSpinner from "./LoadingSpinner";
+
 import { fetchShows } from "../api";
 
 const ShowList = ({ selectedGenreId, searchTerm, sortOrder }) => {
@@ -18,16 +19,31 @@ const ShowList = ({ selectedGenreId, searchTerm, sortOrder }) => {
           : data;
 
         // 2. Filter by search term
+  
         const searchedShows = genreFilteredShows.filter((show) =>
           show.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
         // 3. Sort the shows
         const sortedShows = [...searchedShows].sort((a, b) => {
-          const comparison = a.title.localeCompare(b.title);
-          return sortOrder === "asc" ? comparison : -comparison;
+          if (sortOrder === "newest") {
+            // Assuming 'updated_at' is a Date object or a timestamp
+            const dateA = new Date(a.updated_at);
+            const dateB = new Date(b.updated_at);
+            return dateB - dateA; // Descending (newest first)
+          } else if (sortOrder === "oldest") {
+            // Assuming 'updated_at' is a Date object or a timestamp
+            const dateA = new Date(a.updated_at);
+            const dateB = new Date(b.updated_at);
+            return dateA - dateB; // Ascending (oldest first)
+          } else {
+            // Default to title sorting if sortOrder is invalid
+            const comparison = a.title.localeCompare(b.title);
+            return sortOrder === "asc" ? comparison : -comparison;
+          }
         });
 
+        
         setShows(sortedShows);
       } catch (error) {
         console.error(error);
