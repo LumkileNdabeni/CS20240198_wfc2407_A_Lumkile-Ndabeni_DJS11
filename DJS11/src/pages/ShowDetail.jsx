@@ -78,12 +78,12 @@ const ShowDetail = () => {
 
                 <AudioPlayer src={episode.audioUrl} />
                 <button
-                  onClick={() =>
-                    addFavorite(episode, show, selectedSeason)
-                  }
-                >
-                  Add to Favorites
-                </button>
+                         onClick={() => {
+                          addFavorite(episode, show, selectedSeason);
+                         navigate('/favorites'); // Navigate to favorites page
+                         }} >
+                    Add to Favorites
+                 </button>
               </li>
             ))}
           </ul>
