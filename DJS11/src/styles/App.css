@@ -61,3 +61,18 @@
   margin-left: 20px; /* Add some space between image and description */
   max-width: 400px; /* Limit the width of the description */
 }
+
+/* src/App.css */
+.show-card {
+  /* Existing styles... */
+  display: flex; /* Enable flexbox layout */
+  align-items: center; /* Vertically align items */
+}
+
+.show-card img {
+  margin-right: 10px; /* Add some space between image and details */
+}
+
+.show-details {
+  margin-left: 10px;
+}

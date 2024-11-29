@@ -48,10 +48,7 @@ const Favorites = () => {
         sortedGroupedFavorites.map(({ key, episodes }) => (
           <div key={key} className="favorite-group">
             <div className="favorite-show-info">
-              <ShowCard show={episodes[0].show} />
-              <div className="show-description">
-                <p>{episodes[0].show.description}</p> {/* Display show description */}
-              </div>
+              <ShowCard show={episodes[0].show} showDescription={true} /> {/* Pass showDescription prop */}
             </div>
             <h2>{episodes[0].show.title}</h2>
             <h3>Season {episodes[0].season}</h3>
