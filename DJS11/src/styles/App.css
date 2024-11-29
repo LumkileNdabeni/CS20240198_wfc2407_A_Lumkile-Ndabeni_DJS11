@@ -35,9 +35,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
 }
 
-.show-title-button {
-    background-color: #007bff; 
-    color: white;
+.show-title-button { 
+    color: rgb(44, 34, 34);
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -50,7 +49,7 @@
 }
 
 .show-title-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #79838d; /* Darker shade on hover */
 }
 
 

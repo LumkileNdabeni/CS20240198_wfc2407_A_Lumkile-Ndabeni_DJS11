@@ -1,4 +1,4 @@
-// src/pages/Favorites.jsx  
+// src/pages/Favorites.jsx
 import React, { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import ShowCard from "../components/ShowCard";
@@ -24,6 +24,7 @@ const Favorites = () => {
       ) : (
         Object.entries(groupedFavorites).map(([key, episodes]) => (
           <div key={key}>
+            <ShowCard show={episodes[0].show} /> {/* ShowCard added here */}
             <h2>{episodes[0].show.title}</h2>
             <h3>Season {episodes[0].season}</h3>
             <ul>
