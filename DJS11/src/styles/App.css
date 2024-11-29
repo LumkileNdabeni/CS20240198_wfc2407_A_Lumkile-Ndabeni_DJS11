@@ -52,15 +52,12 @@
     background-color: #79838d; /* Darker shade on hover */
 }
 
-
-.filter-container {
+.favorite-show-info {
   display: flex;
-  justify-content: flex-end; /* Align items to the right */
-  align-items: center; /* Vertically center the items */
-  margin-bottom: 20px; /* Add some space below the container */
+  align-items: flex-start; /* Align items to the top */
 }
 
-.filter-container form, /* Target the search form */
-.filter-container > div /* Target the GenreFilter div */ {
-  margin-left: 20px; /* Add space between the search bar and genre filter */
+.show-description {
+  margin-left: 20px; /* Add some space between image and description */
+  max-width: 400px; /* Limit the width of the description */
 }

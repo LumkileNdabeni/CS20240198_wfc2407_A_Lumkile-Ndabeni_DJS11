@@ -15,11 +15,13 @@ const Home = () => {
     <div>
 
 <div>
-    <h1> Podcast Shows </h1>
-</div>
+<div className="home-container">
+        <h1> Podcast Shows </h1>
+      </div>
 
       <GenreFilter onFilter={handleGenreFilter} />
       <ShowList selectedGenreId={selectedGenreId} />
+    </div>
     </div>
   );
 };
