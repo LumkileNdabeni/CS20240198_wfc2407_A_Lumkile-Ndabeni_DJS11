@@ -1,73 +1,79 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchShowById } from "../api";
+
 import AudioPlayer from "../components/AudioPlayer";
 import ShowCard from "../components/ShowCard";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ShowDetail = () => {
-  const { id } = useParams();
-  const [show, setShow] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedSeason, setSelectedSeason] = useState(null);
-  const [episodes, setEpisodes] = useState([]); // State to hold episodes of the selected season
+    const { id } = useParams();
+    const [show, setShow] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [episodes, setEpisodes] = useState([]);
+    const [selectedSeason, setSelectedSeason] = useState(1); // Default to season 1
 
-  useEffect(() => {
-    const loadShow = async () => {
-      try {
-        const data = await fetchShowById(id);
-        setShow(data);
-        setSelectedSeason(data.seasons[0]); // Default to the first season
-        setEpisodes(data.seasons[0].episodes); // Load episodes of the first season by default
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
+    useEffect(() => {
+        const fetchShowData = async () => {
+            setIsLoading(true);
+            try {
+                const showData = await fetchShowById(id);
+                setShow(showData);
+                // Set initial episodes for the default season
+                setEpisodes(showData.seasons[selectedSeason - 1].episodes);
+            } catch (error) {
+                console.error("Error fetching show details:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchShowData();
+    }, [id, selectedSeason]); // Include selectedSeason in the dependency array
+
+    const handleSeasonChange = (seasonNumber) => {
+        setSelectedSeason(seasonNumber);
     };
-    loadShow();
-  }, [id]);
 
-  if (loading) return <div>Loading show details...</div>;
+    if (isLoading) {
+        return <LoadingSpinner />;
+    }
 
-  const handleSeasonChange = (event) => {
-    const seasonId = event.target.value;
-    const selected = show.seasons.find((season) => season.id === parseInt(seasonId));
-    setSelectedSeason(selected);
-    setEpisodes(selected.episodes); // Update episodes of the selected season
-  };
+    if (!show) {
+        return <div>Show not found</div>;
+    }
 
-  return (
-    <div className="show-detail">
-      <ShowCard show={show} showDescription={true} />
+    return (
+        <div className="show-detail">
+            <ShowCard show={{ ...show, genres: show.genres }} showDescription={true} />
 
-      <div>
-        <label htmlFor="season-select">Select a Season:</label>
-        <select id="season-select" onChange={handleSeasonChange} value={selectedSeason?.id || ""}>
-          {show.seasons.map((season, index) => (
-            <option key={season.id} value={season.id}>
-              Season {index + 1}
-            </option>
-          ))}
-        </select>
-      </div>
+            <div>
+              
+                {show.seasons.map((season, index) => (
+                    <button key={index} onClick={() => handleSeasonChange(index + 1)}>
+                        Season {index + 1}
+                    </button>
+                ))}
 
-      {selectedSeason && (
-        <div>
-          <p>Last Updated: {new Date(show.updated).toLocaleDateString()}</p>
-          <h1>Season {show.seasons.findIndex((s) => s.id === selectedSeason.id) + 1}</h1>
-          <h2>Episodes:</h2>
-          <ul>
-            {episodes.map((episode) => (
-              <li key={episode.id}>
-                <h4>{episode.title}</h4>
-                <AudioPlayer src={episode.audioUrl} />
-              </li>
-            ))}
-          </ul>
+              <p>Last Updated: {new Date(show.updated).toLocaleDateString()}</p>
+              <p>Genres: {show.genres?.join(", ") || "N/A"}</p>
+            </div>
+
+            {selectedSeason && (
+                <div>
+                    <h3>Season {selectedSeason}</h3>
+                    <ul>
+                        {episodes.map((episode) => (
+                            <li key={episode.id}>
+                                <h4>{episode.title}</h4>
+                                <AudioPlayer src={ episode.audioUrl} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default ShowDetail;

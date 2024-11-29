@@ -20,7 +20,7 @@ const GenreFilter = ({ onFilter }) => {
 
   return (
     <div>
-      <h4>Filter by Genre</h4>
+    
       <select onChange={handleGenreChange}>
         <option value="">All Genres</option>
         {genres.map((genre) => (

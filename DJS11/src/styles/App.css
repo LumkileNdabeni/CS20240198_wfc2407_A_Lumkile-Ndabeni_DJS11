@@ -52,3 +52,16 @@
 .show-title-button:hover {
     background-color: #0056b3; /* Darker shade on hover */
 }
+
+
+.filter-container {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center; /* Vertically center the items */
+  margin-bottom: 20px; /* Add some space below the container */
+}
+
+.filter-container form, /* Target the search form */
+.filter-container > div /* Target the GenreFilter div */ {
+  margin-left: 20px; /* Add space between the search bar and genre filter */
+}
